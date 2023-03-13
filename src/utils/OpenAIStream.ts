@@ -21,6 +21,7 @@ export interface OpenAIStreamPayload {
   max_tokens: number;
   stream: boolean;
   n: number;
+  apiKey: string;
 }
 
 export async function OpenAIStream(payload: OpenAIStreamPayload) {
@@ -28,11 +29,13 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const decoder = new TextDecoder();
 
   let counter = 0;
+  console.log(`keys2`, payload.apiKey);
+  
   
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
+      Authorization: `Bearer ${payload.apiKey}`,
     },
     method: "POST",
     body: JSON.stringify(payload),

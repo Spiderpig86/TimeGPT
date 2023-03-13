@@ -6,6 +6,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import Chat from './Chat';
 
 export default function Home() {
+
     library.add(fab);
     library.add(fas);
     return (
@@ -24,7 +25,7 @@ export default function Home() {
                     </div>{' '}
                     DateGPT
                 </h1>
-                <p className="lead text-gray-600">An AI-powered date converter. Enter a prompt to get started:</p>
+                <p className="lead text-gray-600">An AI-powered date converter. Enter a prompt to get started.</p>
                 <Chat />
             </div>
 
@@ -55,7 +56,8 @@ export default function Home() {
                     className="text-black font-bold u u-LR"
                 >
                     Cirrus CSS
-                </a>.
+                </a>
+                .
             </p>
         </main>
     );

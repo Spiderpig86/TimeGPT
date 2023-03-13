@@ -4,19 +4,25 @@ import { OpenAIStream, OpenAIStreamPayload } from '@/utils/OpenAIStream';
 const maxTokens = 100;
 
 export async function POST(req: Request) {
-    const { prompt } = (await req.json()) as {
+    const { prompt, localDateTime, apiKey } = (await req.json()) as {
         prompt?: string;
         localDateTime: string;
+        apiKey?: string;
     };
+    console.log(`key`, apiKey);
+    
     if (!prompt) {
         return new Response('No prompt in the request', { status: 400 });
+    }
+    if (!apiKey) {
+        return new Response('Open AI API key must be provided', { status: 400 });
     }
     const payload: OpenAIStreamPayload = {
         model: 'gpt-3.5-turbo',
         messages: [
             {
                 role: 'user',
-                content: `${process.env.DATEGPT_PROMPT}  ${new Date().toLocaleString()}. Here is the prompt: ${prompt}`,
+                content: `${process.env.DATEGPT_PROMPT} ${localDateTime}. Here is the prompt: ${prompt}`,
             },
         ],
         temperature: 0.7,
@@ -26,9 +32,12 @@ export async function POST(req: Request) {
         max_tokens: maxTokens,
         stream: true,
         n: 1,
+        apiKey,
     };
 
     const stream = await OpenAIStream(payload);
+    console.log(stream);
+    
 
     return new Response(stream);
 }
