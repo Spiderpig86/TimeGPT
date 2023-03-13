@@ -1,0 +1,10 @@
+.hero {
+    background-image: url('/static/images/gradient.jpg');
+    background-size: cover;
+}
+
+.animated.loading::after {
+    border-color: #c5459f;
+    border-right-color: transparent;
+    border-top-color: transparent;
+}
