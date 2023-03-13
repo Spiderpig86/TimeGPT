@@ -2,7 +2,7 @@ import '../styles/cirrus-ui.css';
 import '../styles/app.scss';
 
 export const metadata = {
-    title: 'DateGPT',
+    title: 'TimeGPT',
     description: 'AI-powered time and date generator.',
 };
 

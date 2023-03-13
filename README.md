@@ -1,3 +1,3 @@
-# DateGPT
+# TimeGPT
 
 TBA

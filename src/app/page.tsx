@@ -21,9 +21,9 @@ export default function Home() {
                 <div className="space space--lg"></div>
                 <h1 className="text-center tracking-tight u-flex u-items-center">
                     <div className="w-4 mr-1">
-                        <FontAwesomeIcon icon={['fas', 'calendar-day']}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={['fas', 'clock']}></FontAwesomeIcon>
                     </div>{' '}
-                    DateGPT
+                    TimeGPT
                 </h1>
                 <p className="lead text-gray-600">An AI-powered date converter. Enter a prompt to get started.</p>
                 <Chat />
