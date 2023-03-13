@@ -10,6 +10,14 @@ export default function Chat() {
     library.add(fab);
     library.add(fas);
 
+    const prompts = [
+        `What time is it in Paris?`,
+        `What is 5 months and 2 weeks from now?`,
+        `What date is 8 months ago?`,
+        `When is 3 weeks, 12 hours, and 43 minutes after January 19th, 2038?`,
+        `How many days until New Years Eve?`,
+    ];
+
     const [isLoading, setIsLoading] = useState(false);
     const [generatedReply, setGeneratedReply] = useState('');
     const [prompt, setPrompt] = useState('');
@@ -59,7 +67,18 @@ export default function Chat() {
                                 Set Key
                             </button>
                         </div>
-                        <span className="info">Don't have one? Sign up for an account <a className="u u-LR" href="https://chat.openai.com/auth/login?next=/chat" target="_blank" rel="noopener noreferrer">here</a>.</span>
+                        <span className="info">
+                            Don't have one? Sign up for an account{' '}
+                            <a
+                                className="u u-LR"
+                                href="https://chat.openai.com/auth/login?next=/chat"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                here
+                            </a>
+                            .
+                        </span>
                     </div>
                 </div>
             </div>
@@ -84,6 +103,13 @@ export default function Chat() {
 
         setIsLoading(true);
         setGeneratedReply('');
+
+        const dateTime = new Date().toString();
+        console.log();
+
+        const timezoneRegex = /GMT([\-\+]?\d{4})/;
+        const timeZone = timezoneRegex.exec(dateTime)![1];
+
         const response = await fetch('/api/generate', {
             method: 'POST',
             headers: {
@@ -91,7 +117,7 @@ export default function Chat() {
             },
             body: JSON.stringify({
                 prompt: `${promptInput}`,
-                localDateTime: new Date().toLocaleString(),
+                localDateTime: `${new Date().toLocaleString()} and timezone ${timeZone}`,
                 apiKey: apiKey,
             }),
         });
@@ -101,7 +127,7 @@ export default function Chat() {
             setIsLoading(false);
             setPrompt(promptInput);
             setGeneratedReply(error);
-            
+
             // throw new Error(response.statusText);
             return;
         }
@@ -154,6 +180,7 @@ export default function Chat() {
                     </button>
                 </div>
             )}
+
             <div className="u-flex w-100p max-w-md flex-col u-gap-2">
                 {isLoading ? (
                     <div className="u-center animated loading p-1"></div>
@@ -165,6 +192,25 @@ export default function Chat() {
                     )
                 )}
             </div>
+
+            {apiKey && (
+                <div className="my-2">
+                    <p className="text-sm text-gray-700 mb-0 u-text-center">
+                        Not sure what to ask? Try the following prompts.
+                    </p>
+                    <div className="u-flex u-flex-column u-gap-1">
+                        {prompts.map((p) => (
+                            <div
+                                className="u-round-md bg-white u-bg-opacity-50 p-1 u-shadow-xs"
+                                onClick={(e) => setPromptInput(p)}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <p className="mb-0">{p}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
