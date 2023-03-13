@@ -25,6 +25,10 @@ export default function Chat() {
     const [apiKey, setApiKey] = useState(``);
     const [modalVisible, setModalVisible] = useState(false);
 
+    const isKeyValid = (key: string) => {
+        return key.startsWith(`sk-`);
+    };
+
     const keyModal = useMemo(
         () => (
             <div
@@ -47,7 +51,7 @@ export default function Chat() {
                                 <FontAwesomeIcon icon={['fas', 'close']}></FontAwesomeIcon>
                             </a>
                         </div>
-                        <p>Enter your OpenAI secret key.</p>
+                        <p>Enter your OpenAI API key.</p>
                         <div className="form-group">
                             <input
                                 className="form-group-input"
@@ -61,6 +65,11 @@ export default function Chat() {
                             <button
                                 className="form-group-btn btn-primary"
                                 onClick={(e) => {
+                                    if (!isKeyValid(apiKey)) {
+                                        alert(`Please enter a valid API key`);
+                                        return;
+                                    }
+
                                     setModalVisible(false);
                                 }}
                             >
@@ -68,7 +77,7 @@ export default function Chat() {
                             </button>
                         </div>
                         <span className="info">
-                            Don't have one? Sign up for an account{' '}
+                            Don&apos;t have one? Sign up for an account{' '}
                             <a
                                 className="u u-LR"
                                 href="https://chat.openai.com/auth/login?next=/chat"
@@ -83,13 +92,13 @@ export default function Chat() {
                 </div>
             </div>
         ),
-        [modalVisible]
+        [modalVisible, apiKey]
     );
 
-    const generateReply = async (e: any) => {
+    const generateReply = async (e: any, p?: string) => {
         e.preventDefault();
 
-        if (!promptInput || promptInput.trim().length === 0) {
+        if (!p && (!promptInput || promptInput.trim().length === 0)) {
             console.error('Must provide a prompt');
             alert('Must provide a prompt');
             return;
@@ -105,8 +114,6 @@ export default function Chat() {
         setGeneratedReply('');
 
         const dateTime = new Date().toString();
-        console.log();
-
         const timezoneRegex = /GMT([\-\+]?\d{4})/;
         const timeZone = timezoneRegex.exec(dateTime)![1];
 
@@ -116,7 +123,7 @@ export default function Chat() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                prompt: `${promptInput}`,
+                prompt: `${p ?? promptInput}`,
                 localDateTime: `${new Date().toLocaleString()} and timezone ${timeZone}`,
                 apiKey: apiKey,
             }),
@@ -132,7 +139,7 @@ export default function Chat() {
             return;
         }
 
-        setPrompt(promptInput);
+        setPrompt(p ?? promptInput);
         setIsLoading(false);
 
         // This data is a ReadableStream
@@ -172,7 +179,7 @@ export default function Chat() {
                     }}
                 />
             </div>
-            {!apiKey && (
+            {(!apiKey || !isKeyValid(apiKey)) && (
                 <div className="u-border-1 border-red-300 bg-red-200 u-round-md p-2">
                     Please set your OpenAI key before continuing.{' '}
                     <button className="btn-primary btn--sm m-0 ml-2" onClick={(e) => setModalVisible(true)}>
@@ -193,19 +200,25 @@ export default function Chat() {
                 )}
             </div>
 
-            {apiKey && (
+            {apiKey && isKeyValid(apiKey) && (
                 <div className="my-2">
                     <p className="text-sm text-gray-700 mb-0 u-text-center">
                         Not sure what to ask? Try the following prompts.
                     </p>
                     <div className="u-flex u-flex-column u-gap-1">
-                        {prompts.map((p) => (
+                        {prompts.map((p, i) => (
                             <div
-                                className="u-round-md bg-white u-bg-opacity-50 p-1 u-shadow-xs"
-                                onClick={(e) => setPromptInput(p)}
+                                className="u-round-md bg-white u-bg-opacity-50 px-2 py-1 u-shadow-xs hover-grow"
+                                key={i}
+                                onClick={(e) => {
+                                    setPromptInput(p);
+                                    setTimeout(() => {
+                                        generateReply(e, p);
+                                    }, 600);
+                                }}
                                 style={{ cursor: 'pointer' }}
                             >
-                                <p className="mb-0">{p}</p>
+                                <p className="m-0 text-sm">{p}</p>
                             </div>
                         ))}
                     </div>

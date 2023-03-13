@@ -29,7 +29,7 @@ export default function Home() {
                 <Chat />
             </div>
 
-            <p>
+            <p className='mx-4'>
                 Made by{' '}
                 <a
                     target="_blank"
@@ -55,7 +55,7 @@ export default function Home() {
                     href="https://www.cirrus-ui.com/"
                     className="text-black font-bold u u-LR"
                 >
-                    Cirrus CSS
+                    Cirrus
                 </a>
                 .
             </p>
