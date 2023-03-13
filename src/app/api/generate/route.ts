@@ -10,7 +10,7 @@ export async function POST(req: Request) {
         return new Response('No prompt in the request', { status: 400 });
     }
     if (!apiKey) {
-        return new Response('Open AI API key must be provided', { status: 400 });
+        return new Response('OpenAI API key must be provided', { status: 400 });
     }
     const payload: OpenAIStreamPayload = {
         model: 'gpt-3.5-turbo',

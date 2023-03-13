@@ -44,7 +44,7 @@ export default function Chat() {
                             <input
                                 className="form-group-input"
                                 type="text"
-                                placeholder="OpenAI key..."
+                                placeholder="Your API key"
                                 defaultValue={apiKey}
                                 onChange={(e) => {
                                     setApiKey(e.target.value);
@@ -56,9 +56,10 @@ export default function Chat() {
                                     setModalVisible(false);
                                 }}
                             >
-                                Set
+                                Set Key
                             </button>
                         </div>
+                        <span className="info">Don't have one? Sign up for an account <a className="u u-LR" href="https://chat.openai.com/auth/login?next=/chat" target="_blank" rel="noopener noreferrer">here</a>.</span>
                     </div>
                 </div>
             </div>
@@ -147,7 +148,7 @@ export default function Chat() {
             </div>
             {!apiKey && (
                 <div className="u-border-1 border-red-300 bg-red-200 u-round-md p-2">
-                    Please set your Open AI key before continuing.{' '}
+                    Please set your OpenAI key before continuing.{' '}
                     <button className="btn-primary btn--sm m-0 ml-2" onClick={(e) => setModalVisible(true)}>
                         Set API Key
                     </button>
