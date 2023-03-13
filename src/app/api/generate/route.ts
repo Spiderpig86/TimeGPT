@@ -4,11 +4,7 @@ import { OpenAIStream, OpenAIStreamPayload } from '@/utils/OpenAIStream';
 const maxTokens = 100;
 
 export async function POST(req: Request) {
-    const { prompt, localDateTime, apiKey } = (await req.json()) as {
-        prompt?: string;
-        localDateTime: string;
-        apiKey?: string;
-    };
+    const { prompt, localDateTime, apiKey } = await req.json();
 
     if (!prompt) {
         return new Response('No prompt in the request', { status: 400 });
