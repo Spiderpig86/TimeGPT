@@ -36,5 +36,3 @@ export async function POST(req: Request) {
         return new Response(err, { status: 400 });
     }
 }
-
-export const config = { runtime: 'edge' };
