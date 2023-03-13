@@ -96,7 +96,13 @@ export default function Chat() {
         });
 
         if (!response.ok) {
-            throw new Error(response.statusText);
+            const error = await response.text();
+            setIsLoading(false);
+            setPrompt(promptInput);
+            setGeneratedReply(error);
+            
+            // throw new Error(response.statusText);
+            return;
         }
 
         setPrompt(promptInput);

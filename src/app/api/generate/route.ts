@@ -9,8 +9,7 @@ export async function POST(req: Request) {
         localDateTime: string;
         apiKey?: string;
     };
-    console.log(`key`, apiKey);
-    
+
     if (!prompt) {
         return new Response('No prompt in the request', { status: 400 });
     }
@@ -32,14 +31,14 @@ export async function POST(req: Request) {
         max_tokens: maxTokens,
         stream: true,
         n: 1,
-        apiKey,
     };
 
-    const stream = await OpenAIStream(payload);
-    console.log(stream);
-    
-
-    return new Response(stream);
+    try {
+        const stream = await OpenAIStream(payload, apiKey);
+        return new Response(stream);
+    } catch (err: any) {
+        return new Response(err, { status: 400 });
+    }
 }
 
 export const config = { runtime: 'edge' };

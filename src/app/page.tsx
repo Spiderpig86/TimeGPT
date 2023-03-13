@@ -25,7 +25,7 @@ export default function Home() {
                     </div>{' '}
                     TimeGPT
                 </h1>
-                <p className="lead text-gray-600">An AI-powered date converter. Enter a prompt to get started.</p>
+                <p className="lead text-gray-600">An AI-powered date and time converter. Enter a prompt to get started.</p>
                 <Chat />
             </div>
 
