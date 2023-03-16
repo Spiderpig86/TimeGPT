@@ -6,18 +6,19 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import Chat from './Chat';
 
 export default function Home() {
-
     library.add(fab);
     library.add(fas);
     return (
         <main className="hero min-h-screen u-center">
             <div className="hero-body u-flex-column">
-                <button className="btn--pilled btn-dark outline font-bold u-shadow-md u-flex u-items-center">
-                    <div className="w-2 mr-1">
-                        <FontAwesomeIcon icon={['fab', 'github']}></FontAwesomeIcon>
-                    </div>{' '}
-                    Star on Github
-                </button>
+                <a href="https://github.com/Spiderpig86/TimeGPT">
+                    <button className="btn--pilled btn-dark outline font-bold u-shadow-md u-flex u-items-center">
+                        <div className="w-2 mr-1">
+                            <FontAwesomeIcon icon={['fab', 'github']}></FontAwesomeIcon>
+                        </div>{' '}
+                        Star on Github
+                    </button>
+                </a>
                 <div className="space space--lg"></div>
                 <h1 className="text-center tracking-tight u-flex u-items-center">
                     <div className="w-4 mr-1">
@@ -25,11 +26,13 @@ export default function Home() {
                     </div>{' '}
                     TimeGPT
                 </h1>
-                <p className="lead text-gray-600">An AI-powered date and time converter. Enter a prompt to get started.</p>
+                <p className="lead text-gray-600">
+                    An AI-powered date and time converter. Enter a prompt to get started.
+                </p>
                 <Chat />
             </div>
 
-            <p className='mx-4'>
+            <p className="mx-4">
                 Made by{' '}
                 <a
                     target="_blank"
