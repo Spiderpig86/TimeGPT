@@ -11,7 +11,7 @@ export default function Home() {
     return (
         <main className="hero min-h-screen u-center">
             <div className="hero-body u-flex-column">
-                <a href="https://github.com/Spiderpig86/TimeGPT">
+                <a href="https://github.com/Spiderpig86/TimeGPT" target="_blank">
                     <button className="btn--pilled btn-dark outline font-bold u-shadow-md u-flex u-items-center">
                         <div className="w-2 mr-1">
                             <FontAwesomeIcon icon={['fab', 'github']}></FontAwesomeIcon>
