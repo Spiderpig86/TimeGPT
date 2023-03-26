@@ -21,8 +21,12 @@ export default function Home() {
                 </a>
                 <div className="space space--lg"></div>
                 <h1 className="text-center tracking-tight u-flex u-items-center">
-                    <div className="w-4 mr-1">
-                        <FontAwesomeIcon icon={['fas', 'clock']}></FontAwesomeIcon>
+                    <div className="w-8 mr-1">
+                        {/* <FontAwesomeIcon icon={['fas', 'clock']}></FontAwesomeIcon> */}
+                        <img
+                            src="https://raw.githubusercontent.com/Spiderpig86/TimeGPT/master/public/static/images/TimeGPT_Transparent_128.png"
+                            alt=""
+                        />
                     </div>{' '}
                     TimeGPT
                 </h1>

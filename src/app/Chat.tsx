@@ -208,10 +208,9 @@ export default function Chat() {
                     </p>
                     <div className="row">
                         {prompts.map((p, i) => (
-                            <div className="col-6 mb-1">
+                            <div className="col-6 mb-1" key={i}>
                                 <div
                                     className="u-round-md bg-white u-bg-opacity-50 px-2 py-1 u-shadow-xs hover-grow"
-                                    key={i}
                                     onClick={(e) => {
                                         setPromptInput(p);
                                         setTimeout(() => {
