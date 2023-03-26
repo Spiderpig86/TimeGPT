@@ -4,11 +4,16 @@ import { OpenAIStream, OpenAIStreamPayload } from '@/utils/OpenAIStream';
 const maxTokens = 100;
 
 export async function POST(req: Request) {
-    const { prompt, localDateTime, apiKey } = await req.json();
+    let { prompt, localDateTime, apiKey } = await req.json();
 
     if (!prompt) {
         return new Response('No prompt in the request', { status: 400 });
     }
+
+    if (process.env.AUTO_SET_KEY === `true`) {
+        apiKey = process.env.OPENAI_API_KEY;
+    }
+
     if (!apiKey) {
         return new Response('OpenAI API key must be provided', { status: 400 });
     }

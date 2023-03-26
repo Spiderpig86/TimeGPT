@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -105,7 +105,7 @@ export default function Chat() {
             return;
         }
 
-        if (!apiKey || apiKey.trim().length === 0) {
+        if (!process.env.NEXT_PUBLIC_AUTO_SET_KEY && (!apiKey || apiKey.trim().length === 0)) {
             console.error('Must provide OpenAI API key');
             alert('Must provide OpenAI API key');
             return;
@@ -162,9 +162,11 @@ export default function Chat() {
         }
     };
 
+    console.log(process.env.NEXT_PUBLIC_AUTO_SET_KEY);
+
     return (
         <div className="u-flex u-flex-column u-items-center u-justify-center w-100p">
-            {keyModal}
+            {!process.env.NEXT_PUBLIC_AUTO_SET_KEY && keyModal}
             <div className="form-group w-100p w-70p-md max-w-sm u-shadow-sm mb-4">
                 <input
                     className="form-group-input"
@@ -180,7 +182,7 @@ export default function Chat() {
                     }}
                 />
             </div>
-            {(!apiKey || !isKeyValid(apiKey)) && (
+            {!process.env.NEXT_PUBLIC_AUTO_SET_KEY && (!apiKey || !isKeyValid(apiKey)) && (
                 <div className="u-border-1 border-red-300 bg-red-200 u-round-md p-2">
                     Please set your OpenAI key before continuing.{' '}
                     <button className="btn-primary btn--sm m-0 ml-2" onClick={(e) => setModalVisible(true)}>
@@ -201,7 +203,7 @@ export default function Chat() {
                 )}
             </div>
 
-            {apiKey && isKeyValid(apiKey) && (
+            {(process.env.NEXT_PUBLIC_AUTO_SET_KEY || (apiKey && isKeyValid(apiKey))) && (
                 <div className="my-2 max-w-sm">
                     <p className="text-sm text-gray-700 mb-0 u-text-center">
                         Not sure what to ask? Try the following prompts.
