@@ -16,6 +16,7 @@ export default function Chat() {
         `What date is 8 months ago?`,
         `When is 3 weeks, 12 hours, and 43 minutes after January 19th, 2038?`,
         `How many days until New Years Eve?`,
+        `How many days until Summer?`,
     ];
 
     const [isLoading, setIsLoading] = useState(false);
@@ -201,24 +202,26 @@ export default function Chat() {
             </div>
 
             {apiKey && isKeyValid(apiKey) && (
-                <div className="my-2">
+                <div className="my-2 max-w-sm">
                     <p className="text-sm text-gray-700 mb-0 u-text-center">
                         Not sure what to ask? Try the following prompts.
                     </p>
-                    <div className="u-flex u-flex-column u-gap-1">
+                    <div className="row">
                         {prompts.map((p, i) => (
-                            <div
-                                className="u-round-md bg-white u-bg-opacity-50 px-2 py-1 u-shadow-xs hover-grow"
-                                key={i}
-                                onClick={(e) => {
-                                    setPromptInput(p);
-                                    setTimeout(() => {
-                                        generateReply(e, p);
-                                    }, 600);
-                                }}
-                                style={{ cursor: 'pointer' }}
-                            >
-                                <p className="m-0 text-sm">{p}</p>
+                            <div className="col-6 mb-1">
+                                <div
+                                    className="u-round-md bg-white u-bg-opacity-50 px-2 py-1 u-shadow-xs hover-grow"
+                                    key={i}
+                                    onClick={(e) => {
+                                        setPromptInput(p);
+                                        setTimeout(() => {
+                                            generateReply(e, p);
+                                        }, 600);
+                                    }}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    <p className="m-0 text-sm u-overflow-hidden u-text-ellipsis u-flex-nowrap">{p}</p>
+                                </div>
                             </div>
                         ))}
                     </div>
