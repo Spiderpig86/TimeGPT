@@ -162,10 +162,8 @@ export default function Chat() {
         }
     };
 
-    console.log(process.env.NEXT_PUBLIC_AUTO_SET_KEY);
-
     return (
-        <div className="u-flex u-flex-column u-items-center u-justify-center w-100p">
+        <div className="u-flex u-flex-column u-items-center u-justify-center w-100p px-2">
             {!process.env.NEXT_PUBLIC_AUTO_SET_KEY && keyModal}
             <div className="form-group w-100p w-70p-md max-w-sm u-shadow-sm mb-4">
                 <input
@@ -221,7 +219,7 @@ export default function Chat() {
                                     }}
                                     style={{ cursor: 'pointer' }}
                                 >
-                                    <p className="m-0 text-sm u-overflow-hidden u-text-ellipsis u-flex-nowrap">{p}</p>
+                                    <p className="suggestion m-0 text-sm u-overflow-hidden u-flex-nowrap">{p}</p>
                                 </div>
                             </div>
                         ))}

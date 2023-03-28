@@ -8,3 +8,10 @@
     border-right-color: transparent;
     border-top-color: transparent;
 }
+
+@media screen and (min-width: 768px) {
+    .suggestion {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

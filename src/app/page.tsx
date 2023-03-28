@@ -9,7 +9,7 @@ export default function Home() {
     library.add(fab);
     library.add(fas);
     return (
-        <main className="hero min-h-screen u-center">
+        <main className="hero min-h-screen u-center px-2">
             <div className="hero-body u-flex-column">
                 <a href="https://github.com/Spiderpig86/TimeGPT" target="_blank">
                     <button className="btn--pilled btn-dark outline font-bold u-shadow-md u-flex u-items-center">
@@ -66,6 +66,15 @@ export default function Home() {
                 </a>
                 .
             </p>
+            <div className="u-fixed u-bottom-0 u-right-0 pr-4 pb-4 pr-6-md pb-6-md">
+                <div className="u-pull-right">
+                    <a href="https://github.com/sponsors/Spiderpig86" target="_blank">
+                        <button className="u-round-full bg-indigo-500 u-shadow-lg tooltip font-normal" data-tooltip="Feeling generous?">
+                            🎁
+                        </button>
+                    </a>
+                </div>
+            </div>
         </main>
     );
 }
