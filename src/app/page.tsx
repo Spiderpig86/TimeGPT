@@ -34,6 +34,19 @@ export default function Home() {
                     An AI-powered date and time converter. Enter a prompt to get started.
                 </p>
                 <Chat />
+
+                <a
+                    href="https://www.producthunt.com/posts/timegpt?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-timegpt"
+                    target="_blank"
+                >
+                    <img
+                        src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=386225&theme=neutral"
+                        alt="TimeGPT - Streamline&#0032;your&#0032;time&#0032;and&#0032;boost&#0032;productivity&#0032;with&#0032;TimeGPT&#0046;&#0032;⚡ | Product Hunt"
+                        // style="width: 250px; height: 54px;"
+                        width="250"
+                        height="54"
+                    />
+                </a>
             </div>
 
             <p className="mx-4">
@@ -69,7 +82,10 @@ export default function Home() {
             <div className="u-fixed u-bottom-0 u-right-0 pr-4 pb-4 pr-6-md pb-6-md">
                 <div className="u-pull-right">
                     <a href="https://github.com/sponsors/Spiderpig86" target="_blank">
-                        <button className="u-round-full bg-indigo-500 u-shadow-lg tooltip font-normal" data-tooltip="Feeling generous?">
+                        <button
+                            className="u-round-full bg-indigo-500 u-shadow-lg tooltip font-normal"
+                            data-tooltip="Feeling generous?"
+                        >
                             🎁
                         </button>
                     </a>
