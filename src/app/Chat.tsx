@@ -1,10 +1,14 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { Mutex, tryAcquire } from 'async-mutex';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+
+const mutex = new Mutex();
 
 export default function Chat() {
     library.add(fab);
@@ -19,7 +23,7 @@ export default function Chat() {
         `How many days until Summer?`,
     ];
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false); // Display spinner
     const [generatedReply, setGeneratedReply] = useState('');
     const [prompt, setPrompt] = useState('');
     const [promptInput, setPromptInput] = useState('');
@@ -96,6 +100,14 @@ export default function Chat() {
         [modalVisible, apiKey]
     );
 
+    const generateReplySync = async (e: any, p?: string) => {
+        try {
+            await tryAcquire(mutex).runExclusive(async () => await generateReply(e, p));
+        } catch (e) {
+            // Ignore already running process
+        }
+    };
+
     const generateReply = async (e: any, p?: string) => {
         e.preventDefault();
 
@@ -110,6 +122,7 @@ export default function Chat() {
             alert('Must provide OpenAI API key');
             return;
         }
+        setPromptInput(p as string);
 
         setIsLoading(true);
         setGeneratedReply('');
@@ -172,10 +185,10 @@ export default function Chat() {
                     type="text"
                     name="promptInput"
                     onChange={(e) => setPromptInput(e.target.value)}
-                    value={promptInput}
+                    value={promptInput ?? ``}
                     onKeyUp={(e) => {
                         if (e.key === `Enter`) {
-                            generateReply(e);
+                            generateReplySync(e);
                         }
                     }}
                 />
@@ -212,10 +225,9 @@ export default function Chat() {
                                 <div
                                     className="u-round-md bg-white u-bg-opacity-50 px-2 py-1 u-shadow-xs hover-grow"
                                     onClick={(e) => {
-                                        setPromptInput(p);
                                         setTimeout(() => {
-                                            generateReply(e, p);
-                                        }, 600);
+                                            generateReplySync(e, p);
+                                        }, 200);
                                     }}
                                     style={{ cursor: 'pointer' }}
                                 >
