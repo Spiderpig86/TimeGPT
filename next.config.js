@@ -4,7 +4,7 @@ const nextConfig = {
         appDir: true,
     },
     env: {
-        NEXT_PUBLIC_AUTO_SET_KEY: true,
+        NEXT_PUBLIC_AUTO_SET_KEY: false,
         NEXT_PUBLIC_GTAG: `G-5FYMEWRZZ7`,
     },
 };

@@ -194,7 +194,7 @@ export default function Chat() {
                 />
             </div>
             {!process.env.NEXT_PUBLIC_AUTO_SET_KEY && (!apiKey || !isKeyValid(apiKey)) && (
-                <div className="u-border-1 border-red-300 bg-red-200 u-round-md p-2">
+                <div className="u-border-1 border-red-300 bg-red-200 u-round-md p-2 mb-2">
                     Please set your OpenAI key before continuing.{' '}
                     <button className="btn-primary btn--sm m-0 ml-2" onClick={(e) => setModalVisible(true)}>
                         Set API Key
